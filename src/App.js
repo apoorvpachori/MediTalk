@@ -1,11 +1,15 @@
 import React from 'react';
 //import './App.css';
 
+
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import {Typography} from '@material-ui/core'; 
+import Signin from './components/Signin';
+import Navbar from './components/Navbar';
 // import all routing packages
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 
 // import all components
-import Home from './components/Home';
 import Profile from './components/Profile';
 import Feed from './components/Feed';
 import Discussion from './components/Discussion';
@@ -18,6 +22,52 @@ import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main:"#2e1667",
+    },
+    secondary: {
+      main:"#c7d8ed",
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Roboto'
+    ],
+    h4: {
+      fontWeight: 600,
+      fontSize: 28,
+      lineHeight: '2rem',
+      },
+    h5: {
+      fontWeight: 100,
+      lineHeight: '2rem',
+    },
+  },
+});
+
+const styles = makeStyles({
+  wrapper: {
+    width: "65%",
+    margin: "auto",
+    textAlign: "center"
+  },
+  bigSpace: {
+    marginTop: "5rem"
+  },
+  littleSpace:{
+    marginTop: "2.5rem",
+  },
+  grid:{
+    display: "flex", 
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap", 
+  },
+})
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyCeUIT7dyEPAOqnFZMSBturk8mO0NjbsB8",
@@ -65,11 +115,10 @@ function SignIn() {
   
   return (
     <>
-    <h1>Welcome to MediTalk</h1>
-    <h2>Sign in the join the discussion!</h2>
-    <button onClick={signInWithGoogle}>
-      Sign in with Google
-    </button>
+    <ThemeProvider theme={theme}>
+      <Navbar signInWithGoogle = {signInWithGoogle}/>
+      <Signin signInWithGoogle = {signInWithGoogle}/>
+    </ThemeProvider>
     </>
   )
 }
