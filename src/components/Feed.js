@@ -1,15 +1,13 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Feed() {
-    const redirect = () => {
-        <Navigate to='/create' />
-    }
+    let navigate = useNavigate();
     
     return (
         <div>
             Feed placeholder
-            <button onClick={() => redirect}>Create Discussion</button>
+            <button onClick={() => navigate('create')}>Create Discussion</button>
         </div>
     )
 }
