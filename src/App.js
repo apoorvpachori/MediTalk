@@ -12,8 +12,9 @@ import ImportExportIcon from '@material-ui/icons/ImportExport';
 import ComputerIcon from '@material-ui/icons/Computer';
 import HttpIcon from '@material-ui/icons/Http'; 
 import Grid from './components/homepage/Grid';
+
 // import all routing packages
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // import all components
 import Profile from './components/Profile';
@@ -27,7 +28,6 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 // import firebase objects
 import { auth, firestore } from './firebase'
@@ -77,24 +77,9 @@ const styles = makeStyles({
   },
 })
 
-
-firebase.initializeApp({
-  apiKey: "AIzaSyCeUIT7dyEPAOqnFZMSBturk8mO0NjbsB8",
-  authDomain: "meditalk-c376a.firebaseapp.com",
-  projectId: "meditalk-c376a",
-  storageBucket: "meditalk-c376a.appspot.com",
-  messagingSenderId: "424322085833",
-  appId: "1:424322085833:web:d3e6deedd9e47f9177ee18",
-  measurementId: "G-SPBMLKF6RY"
-})
-
-const auth = firebase.auth();
-const firestore = firebase.firestore();
->>>>>>> 33c193c05dd67251e8b31dd640ebb406428e52de
-
 function App() {
   const [user] = useAuthState(auth);
-  const classes = styles(); 
+  
 
   return (
     <Router>
@@ -104,17 +89,12 @@ function App() {
       </header>
 
       <Routes>
-          <Route path='/signin' element={<SignIn />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/discussion' element={<Discussion />} />
           <Route path='/create' element={<CreateDiscussion />} />
           <Route path='/' exact element={user ? <Feed /> : <SignIn />} />
       </Routes>
-        <div className={`${classes.grid} ${classes.bigSpace}`}>
-          <Grid icon={<LocalHospitalIcon style={{fill: "#4360A6", height:"125", width:"125"}}/>}  title="Professional" btnTitle="Show me More" />
-          <Grid icon={<EventNoteIcon style={{fill: "#449A76", height:"125", width:"125"}}/>} title="Reliable" btnTitle="Show me More"/>
-          <Grid icon={<PeopleIcon style={{fill: "#D05B2D", height:"125", width:"125"}}/>}  title="Trusted" btnTitle="Show me More"/>
-        </div>
+        
     </div>
     </Router>
   );
@@ -126,13 +106,19 @@ function SignIn() {
     const signInWithGoogle = () => {
     console.log('Clicked sign in ');
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    auth.signInWithPopup(provider); 
   }
+    const classes = styles();
   
   return (
     <>
     <ThemeProvider theme={theme}>
       <Navbar signInWithGoogle = {signInWithGoogle}/>
+      <div className={`${classes.grid} ${classes.bigSpace}`}>
+          <Grid icon={<LocalHospitalIcon style={{fill: "#4360A6", height:"125", width:"125"}}/>}  title="Professional" btnTitle="Show me More" />
+          <Grid icon={<EventNoteIcon style={{fill: "#449A76", height:"125", width:"125"}}/>} title="Reliable" btnTitle="Show me More"/>
+          <Grid icon={<PeopleIcon style={{fill: "#D05B2D", height:"125", width:"125"}}/>}  title="Trusted" btnTitle="Show me More"/>
+      </div>
     </ThemeProvider>
     </>
   )
