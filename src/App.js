@@ -3,14 +3,10 @@ import React from 'react';
 
 
 import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import {Typography} from '@material-ui/core'; 
 import Navbar from './components/homepage/Navbar';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import PeopleIcon from '@material-ui/icons/People';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import ComputerIcon from '@material-ui/icons/Computer';
-import HttpIcon from '@material-ui/icons/Http'; 
 import Grid from './components/homepage/Grid';
 
 // import all routing packages
