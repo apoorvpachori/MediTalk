@@ -25,9 +25,10 @@ const StyledButton = withStyles({
     },
   })(Button); 
 export default function Signin(props) {
+  console.log(props.signInWithGoogle)
   return (
     <div>
-      <StyledButton onClick = {props.signInWithGoogle}>Sign in with Google</StyledButton>
+      <StyledButton onClick = {props.signInWithGoogle}>Sign in</StyledButton>
     </div>
   );
 }

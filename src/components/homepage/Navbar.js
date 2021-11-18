@@ -1,10 +1,9 @@
 import React from "react";
 import Signin from "./Signin";
-import logo from "../resources/logo.svg";
-import logoMobile from "../resources/logoMobile.svg";
+import logo from "../../resources/logo.svg";
+import logoMobile from "../../resources/logoMobile.svg";
 import { Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { Button } from "@material-ui/core";
 
 const styles = makeStyles({
     bar:{
@@ -37,9 +36,9 @@ const styles = makeStyles({
             paddingBottom: "1rem"    }
     }
 })
+
 export default function Navbar(props) {
     const classes = styles()
-
   return (
     <Toolbar
       position="sticky"
@@ -63,7 +62,7 @@ export default function Navbar(props) {
       <Typography variant="h6" className={classes.menuItem}>
         Contact Us
       </Typography>
-      <Button onClick = {props.signInWithGoogle} />
+      <Signin signInWithGoogle = {props.signInWithGoogle} />
     </Toolbar>
   );
 }
