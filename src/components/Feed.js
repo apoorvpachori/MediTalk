@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { firestore } from '../firebase'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -19,7 +19,7 @@ export default function Feed() {
             <div>
                 {discussions && discussions.map(disc => 
                     <div>
-                        <p>{disc.title}</p>
+                        <a href={`/discussion/${disc.title}`}>{disc.title}</a>
                         <p>{disc.description}</p>
                     </div>
                     )}

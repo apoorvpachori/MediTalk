@@ -90,7 +90,7 @@ function App() {
 
       <Routes>
           <Route path='/profile' element={<Profile />} />
-          <Route path='/discussion' element={<Discussion />} />
+          <Route path='/discussion/:title' element={<Discussion />} />
           <Route path='/create' element={<CreateDiscussion />} />
           <Route path='/' exact element={user ? <Feed /> : <SignIn />} />
       </Routes>
