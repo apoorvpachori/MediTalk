@@ -19,7 +19,7 @@ export default function Feed() {
             <div>
                 {discussions && discussions.map(disc => 
                     <div>
-                        <a href={`/discussion/${disc.title}`}>{disc.title}</a>
+                        <a href={`/discussion/${disc.id}`}>{disc.title}</a>
                         <p>{disc.description}</p>
                     </div>
                     )}

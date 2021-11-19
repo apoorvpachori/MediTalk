@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { collection, doc, setDoc } from "firebase/firestore";
 
 import { auth, firestore } from '../firebase'
 
@@ -8,20 +9,22 @@ export default function CreateDiscussion() {
     
     const [formTitle, setTitle] = useState('');
     const [formDesc, setDesc] = useState('');
-    
-    const discRef = firestore.collection('discussions');
 
+    const newRef = doc(collection(firestore, 'discussions'));
     const createDisc = async (e) => {
         e.preventDefault();
 
         const { uid } = auth.currentUser;
 
-        await discRef.add({
-            title: formTitle,
-            description: formDesc,
-            postedBy: uid
-        })
-
+        await setDoc(
+            newRef,
+            {
+                title: formTitle,
+                description: formDesc,
+                postedBy: uid,
+                id: newRef.id
+            }
+        )
         setTitle('');
         setDesc('');
     }
