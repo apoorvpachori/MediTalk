@@ -1,7 +1,7 @@
-import React, { useState, setState } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { firestore } from '../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 
 export default function Discussion() {
     let navigate = useNavigate();
@@ -14,16 +14,27 @@ export default function Discussion() {
 
     const [discussions] = useCollectionData(query)
     
+    var discs = []
+    discRef.get().then(doc  => {
+        let currentID = doc.id
+        discs.push(currentID)
+        discs.push('id')
+    })
+
+
     return (
         <>
             <button onClick={() => navigate('/')}>Home</button>
             {discussions && discussions.map(disc => 
-                    <div>
-                        <h3>{disc.title}</h3>
+                    <div key='{disc}'>
+                        <h3>{disc.title}</h3> 
                         <p>{disc.description}</p>
                         <p>{disc.id}</p>
                     </div>
                     )}
+            {discs && discs.map(id =>
+                <p key='{id}'>{id}</p>
+                )}
             <div></div>
         </>
     )

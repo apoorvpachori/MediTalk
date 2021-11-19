@@ -2,7 +2,7 @@ import React from 'react';
 //import './App.css';
 
 
-import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Navbar from './components/homepage/Navbar';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -10,7 +10,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import Grid from './components/homepage/Grid';
 
 // import all routing packages
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 // import all components
 import Profile from './components/Profile';
@@ -26,9 +26,9 @@ import 'firebase/compat/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 // import firebase objects
-import { auth, firestore } from './firebase'
+import { auth } from './firebase'
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main:"#2e1667",
@@ -122,8 +122,12 @@ function SignIn() {
 
 // keep sign out component in App.js
 function SignOut() {
+  let navigate = useNavigate();
+  
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()}>Sign out</button>
+    <button onClick={() => {auth.signOut(); navigate('/')}}>
+      Sign out
+    </button>
   )
 }
 
