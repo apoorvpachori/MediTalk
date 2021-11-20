@@ -17,6 +17,7 @@ import Profile from './components/Profile';
 import Feed from './components/Feed';
 import Discussion from './components/Discussion';
 import CreateDiscussion from './components/CreateDiscussion';
+import HomeButton from './components/HomeButton';
 
 // import firebase packages
 import firebase from 'firebase/compat/app';
@@ -79,9 +80,10 @@ function App() {
 
   return (
     <Router>
-    <div className="App">
-      <header className="App-header">
+    <div>
+      <header>
           <SignOut />
+          <HomeButton />
       </header>
 
       <Routes>

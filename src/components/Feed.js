@@ -1,3 +1,4 @@
+import '../App.css'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,11 +17,16 @@ export default function Feed() {
             <header>
                 <button onClick={() => navigate('create')}>Create Discussion</button>
             </header>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <input class='inputPost' placeholder='Search bar does not work yet' />
+            </div>
             <div>
                 {discussions && discussions.map(disc => 
-                    <div>
+                    <div class='thread'>
+                        <div class='post'>
                         <a href={`/discussion/${disc.id}`}>{disc.title}</a>
                         <p>{disc.description}</p>
+                        </div>
                     </div>
                     )}
             </div>

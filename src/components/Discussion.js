@@ -27,14 +27,15 @@ export default function Discussion() {
     const createPost = async (e) => {
         e.preventDefault();
 
-        const { uid } = auth.currentUser;
+        const user = auth.currentUser;
+        const displayName = user.displayName
 
         await setDoc(
             newRef,
             {
                 post: formPost,
                 discussion: id,
-                author: uid,
+                author: displayName,
                 date: firebase.firestore.Timestamp.now()
             }
         )
@@ -43,24 +44,33 @@ export default function Discussion() {
     
     return (
         <>
+            <div>
             <button onClick={() => navigate('/')}>Home</button>
             {discussions && discussions.map(disc => 
-                    <div>
-                        <h1>{disc.title}</h1>
-                        <p>{disc.description}</p>
+                    <div class='thread'>
+                        <div class='title'>
+                            <h1 style={{fontWeight: 100}}>{disc.title}</h1>
+                        </div>
+                        <div class='description'>
+                            <h2 style={{fontWeight: 100}}>{disc.description}</h2>
+                        </div>
                     </div>
                     )}
-            {posts && posts.map(post => 
-                    <div>
-                        <p>{post.post}</p>
-                    </div>
-                    )}
+            <div class='thread'>
+                <form onSubmit={createPost}>
+                    <input class='inputPost' value={formPost} onChange={(e) => setPost(e.target.value)} placeholder='Say something nice' />
+                    <button class='postButton' type='submit' disabled={!formPost}>Post</button>
+                </form>
+            </div>
 
-            <form onSubmit={createPost}>
-                <h1>Reply</h1>
-                <input value={formPost} onChange={(e) => setPost(e.target.value)} placeholder='Say something nice' />
-                <button type='submit' disabled={!formPost}>Post</button>
-            </form>
+            <div class='thread'>
+                {posts && posts.map(post => 
+                        <div class='post'>
+                            <p><span style={{fontWeight: 'bold'}}>{post.author}:</span> {post.post}</p>
+                        </div>
+                        )}
+            </div>
+            </div>
         </>
     )
 }

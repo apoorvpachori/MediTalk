@@ -1,3 +1,122 @@
+html {
+  height: 100%;
+  background-color: #f2f0f0;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background: rgb(241, 199, 199);
+  border-style: none;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(247, 216, 216);
+  border-radius: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-indent: 30px;
+  color: azure;
+  height: 100%;
+}
+
+.newPost {
+  background-color: rgb(244, 228, 228);
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 30px;
+}
+
+.inputPost {
+  width: 400px;
+  height: 40px;
+  border-style: none;
+  background-color: white;
+  margin-left: -15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 30px;
+  text-indent: 10px;
+}
+
+.inputPost:focus {
+  border: 3px solid #820D04;
+  outline: #820D04;
+  box-shadow: 0 0 2px #820D04;
+}
+
+.post {
+  display: flex;
+  border-style: none;
+  background-color: rgb(253, 242, 242);
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 30px;
+  text-indent: 20px;
+  font-weight: 100;
+  color: rgb(116, 114, 114);
+}
+
+.postButton {
+  width: 100px;
+  height: 40px;
+  border-style: none;
+  background-color: rgb(243, 188, 188);
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 30px;
+  transition-duration: 0.4s;
+  color: black;
+  font-weight: bold;
+}
+
+.postButton:hover {
+  background-color: white;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: 100;
+  color: white;
+  background-color: #820D04;
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  vertical-align: middle;
+}
+
+.description {
+  display: flex;
+  border-style: none;
+  background-color: rgb(253, 242, 242);
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 30px;
+  text-indent: 20px;
+  font-weight: 100;
+  vertical-align: middle;
+  min-height: 50px;
+  color: rgb(116, 114, 114);
+}
+
+/*
 .App {
   text-align: center;
 }
@@ -36,3 +155,4 @@
     transform: rotate(360deg);
   }
 }
+*/
