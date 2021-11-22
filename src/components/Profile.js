@@ -5,25 +5,25 @@ import { sendEmailVerification } from '@firebase/auth'
 
 export default function Profile() {
     
-    
-    
-    
-
     let navigate = useNavigate()
      let user = auth.currentUser
-     user = sessionStorage.getItem("user");
+     if (user == null)
+        user = sessionStorage.getItem("user");
      sessionStorage.setItem("user", user);
 
      let email = user.email
-     email = sessionStorage.getItem("email");
+     if (email == null)
+        email = sessionStorage.getItem("email");
      sessionStorage.setItem("email", email);
 
      let displayName = user.displayName
-     displayName = sessionStorage.getItem("displayName");
+     if (displayName == null)
+         displayName = sessionStorage.getItem("displayName");
      sessionStorage.setItem("displayName", displayName);
      
      let verified = user.emailVerified
-     verified = sessionStorage.getItem("verified");
+     if (verified == null)
+        verified = sessionStorage.getItem("verified");
      sessionStorage.setItem("verified", verified);
 
     const verify = async (e) => {
