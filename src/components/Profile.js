@@ -4,11 +4,27 @@ import { auth } from '../firebase'
 import { sendEmailVerification } from '@firebase/auth'
 
 export default function Profile() {
+    
+    
+    
+    
+
     let navigate = useNavigate()
-    const user = auth.currentUser
-    const email = user.email
-    const displayName = user.displayName
-    const verified = user.emailVerified
+     let user = auth.currentUser
+     user = sessionStorage.getItem("user");
+     sessionStorage.setItem("user", user);
+
+     let email = user.email
+     email = sessionStorage.getItem("email");
+     sessionStorage.setItem("email", email);
+
+     let displayName = user.displayName
+     displayName = sessionStorage.getItem("displayName");
+     sessionStorage.setItem("displayName", displayName);
+     
+     let verified = user.emailVerified
+     verified = sessionStorage.getItem("verified");
+     sessionStorage.setItem("verified", verified);
 
     const verify = async (e) => {
         sendEmailVerification(user).then(() => {
