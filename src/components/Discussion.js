@@ -28,7 +28,9 @@ export default function Discussion() {
         e.preventDefault();
 
         const user = auth.currentUser;
-        const displayName = user.displayName
+        var displayName = user.displayName
+        const parts = displayName.split('|')
+        displayName = parts[0]
 
         await setDoc(
             newRef,
@@ -36,12 +38,13 @@ export default function Discussion() {
                 post: formPost,
                 discussion: id,
                 author: displayName,
-                date: firebase.firestore.Timestamp.now()
+                date: firebase.firestore.FieldValue.serverTimestamp(),
+                img: user.photoURL
             }
         )
         setPost('');
     }
-    
+
     return (
         <>
             <div>
@@ -63,10 +66,17 @@ export default function Discussion() {
                 </form>
             </div>
 
-            <div class='thread'>
+            <div className='thread'>
                 {posts && posts.map(post => 
                         <div class='post'>
-                            <p><span style={{fontWeight: 'bold'}}>{post.author}:</span> {post.post}</p>
+                            <div class='post'>
+                                <img class='img' alt='missing' src={post.img || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
+                                <p><span style={{fontWeight: 'bold'}}>{post.author}</span></p>
+                                <p>{post.date.toDate().toString()}</p>
+                            </div>
+                            <div>
+                                <p>{post.post}</p>
+                            </div>
                         </div>
                         )}
             </div>

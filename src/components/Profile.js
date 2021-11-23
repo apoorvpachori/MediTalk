@@ -1,44 +1,81 @@
+import '../App.css'
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { auth } from '../firebase'
-import { sendEmailVerification } from '@firebase/auth'
+import { auth, firestore } from '../firebase'
+import { sendEmailVerification, updateProfile } from '@firebase/auth'
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Profile() {
-    
-    
-    
-    
 
     let navigate = useNavigate()
-     let user = auth.currentUser
-     user = sessionStorage.getItem("user");
-     sessionStorage.setItem("user", user);
+    const user = auth.currentUser
+    const email = user.email
+    var displayName = user.displayName
+    const parts = displayName.split('|')
+    displayName = parts[0]
+    const isStu = parts[1]
+    const verified = user.emailVerified
+    const domain = email.substr(-3)
+    
+    console.log(user.displayName)
+    console.log(isStu)
 
-     let email = user.email
-     email = sessionStorage.getItem("email");
-     sessionStorage.setItem("email", email);
+    // adds user's email to collection of verified medical students
+    function addStu() {
+        setDoc(
+            doc(firestore, 'students', email),
+            {
+                email: email
+            }
+        )
+        // update display name of user
+        if (isStu !== 'stu') {
+            updateProfile(user, {displayName: displayName + '|stu'}).then(() => navigate('/profile'))
+        }
+    }
 
-     let displayName = user.displayName
-     displayName = sessionStorage.getItem("displayName");
-     sessionStorage.setItem("displayName", displayName);
-     
-     let verified = user.emailVerified
-     verified = sessionStorage.getItem("verified");
-     sessionStorage.setItem("verified", verified);
+    // calls addStu if user's email is both verified and ends in 'edu'
+    function verify() {
+        if (domain === 'edu') {
+            
+            if (!verified) {
+                sendEmailVerification(user).then(() => {
+                    alert('Email sent. Verify your email and then try again.')
+                })
+            }
+            addStu()
+        }
+    }
 
-    const verify = async (e) => {
-        sendEmailVerification(user).then(() => {
-            alert('Email sent')
-        })
+    function unverify() {
+        if (isStu === 'stu') {
+            updateProfile(user, {displayName: displayName}).then(() => navigate('/profile'))
+        }
     }
 
     return user && (
         <>
-            <button onClick={() => navigate('/')}>Home</button>
-            <h1>Hi {displayName}</h1>
-            <h2>Email: {email}</h2>
-            <button onClick={verify}>Verify</button>
-            {verified && <h1>yes</h1>}
+             <button onClick={() => navigate('/')}>Home</button>
+             <div class='container'>
+                <div>
+                    <img class='profile' src={user.photoURL} alt="" />
+                </div>
+                <div class='details'>
+                    <h1>{displayName}</h1>
+                    <h2>Email: {email}</h2>
+                </div>
+             </div>
+             <div class='container2'>
+                <h1 style={{fontWeight: 100, textIndent: 20}}>Badges</h1>
+                {isStu === 'stu' && <div class='star'>medstudent</div>}
+                <div>
+                    {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
+                </div>
+             </div>
+            
+             
+            
+            
         </>
     )
 }
