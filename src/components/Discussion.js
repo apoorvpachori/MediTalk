@@ -72,7 +72,7 @@ export default function Discussion() {
                             <div class='post'>
                                 <img class='img' alt='missing' src={post.img || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
                                 <p><span style={{fontWeight: 'bold'}}>{post.author}</span></p>
-                                <p>{post.date.toDate().toString()}</p>
+                                <p>{post.date && post.date.toDate() && post.date.toDate().toString()}</p>
                             </div>
                             <div>
                                 <p>{post.post}</p>

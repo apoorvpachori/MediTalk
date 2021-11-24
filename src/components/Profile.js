@@ -8,15 +8,41 @@ import { doc, setDoc } from "firebase/firestore";
 export default function Profile() {
 
     let navigate = useNavigate()
-    const user = auth.currentUser
-    const email = user.email
+    var user = auth.currentUser
+    if (user == undefined)
+        return null;
+    else
+        localStorage.getItem("user")
+
+    var email = user.email
+    if (email == undefined)
+    return null;
+    else
+        localStorage.getItem("email")
+
     var displayName = user.displayName
+    if (displayName == undefined)
+    return null;
+    else
+        localStorage.getItem("displayName")
+
     const parts = displayName.split('|')
     displayName = parts[0]
     const isStu = parts[1]
-    const verified = user.emailVerified
+
+    var verified = user.emailVerified
+    if (verified == undefined)
+    return null;
+    else
+        localStorage.getItem("verified")
+
     const domain = email.substr(-3)
-    
+
+    localStorage.setItem("user", user)
+    localStorage.setItem("email", email)
+    localStorage.setItem("displayName", displayName)
+    localStorage.setItem("verified", verified)
+
     console.log(user.displayName)
     console.log(isStu)
 
