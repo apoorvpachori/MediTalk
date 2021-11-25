@@ -38,9 +38,9 @@ export default function Feed() {
                 {list && list.map(disc => 
                     <div class='thread'>
                         <div class='post'>
-                        <a href={`/discussion/${disc[0]}`}>{disc[1]}</a>
-                        <p>{disc[2]}</p>
-                        {disc[3] && <p>Tags: {disc[3]}</p>}
+                            <p><a href={`/discussion/${disc[0]}`}>{disc[1]}</a></p>
+                            <p>{disc[2]}</p>
+                            {disc[3] && <p>Tags: {disc[3]}</p>}
                         </div>
                     </div>
                     )}

@@ -18,6 +18,7 @@ import Feed from './components/Feed';
 import Discussion from './components/Discussion';
 import CreateDiscussion from './components/CreateDiscussion';
 import HomeButton from './components/HomeButton';
+import NavBar from './components/NavBar';
 
 // import firebase packages
 import firebase from 'firebase/compat/app';
@@ -82,9 +83,9 @@ function App() {
     <Router>
     <div>
       <header>
-          <SignOut />
-          <HomeButton />
+        {user && <NavBar />}
       </header>
+      
 
       <Routes>
           <Route path='/profile' element={<Profile />} />
@@ -101,10 +102,10 @@ function App() {
 
 // keep sign in component in App.js
 function SignIn() {
-    const signInWithGoogle = () => {
+  const signInWithGoogle = () => {
     console.log('Clicked sign in ');
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider); 
+    auth.signInWithPopup(provider);
   }
     const classes = styles();
   
@@ -122,15 +123,5 @@ function SignIn() {
   )
 }
 
-// keep sign out component in App.js
-function SignOut() {
-  let navigate = useNavigate();
-  
-  return auth.currentUser && (
-    <button onClick={() => {auth.signOut(); navigate('/')}}>
-      Sign out
-    </button>
-  )
-}
 
 export default App;

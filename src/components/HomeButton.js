@@ -10,6 +10,6 @@ export default function HomeButton() {
     let navigate = useNavigate();
 
     return user && (
-        <button class='circle' onClick={() => navigate('/profile')}>Account</button>
+        <button class='postButton' onClick={() => navigate('/profile')}>Account</button>
     )
 }

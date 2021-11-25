@@ -31,6 +31,10 @@ export default function Discussion() {
         var displayName = user.displayName
         const parts = displayName.split('|')
         displayName = parts[0]
+        var isStu = parts[1]
+        if (!isStu) {
+            isStu = false;
+        }
 
         await setDoc(
             newRef,
@@ -39,7 +43,8 @@ export default function Discussion() {
                 discussion: id,
                 author: displayName,
                 date: firebase.firestore.FieldValue.serverTimestamp(),
-                img: user.photoURL
+                img: user.photoURL,
+                stu: isStu
             }
         )
         setPost('');
@@ -50,14 +55,13 @@ export default function Discussion() {
     var arr = []
     posts && posts.map(post => {
         const date = post.date && post.date.toDate().toISOString().slice(-24).replace(/T/g,' ').slice(0, 19);
-        arr.push([date, post.author, post.post, post.img])})
+        arr.push([date, post.author, post.post, post.img, post.stu])})
     arr.sort().reverse()
     console.log(arr)
 
     return (
         <>
             <div>
-            <button onClick={() => navigate('/')}>Home</button>
             {discussions && discussions.map(disc => 
                     <div class='thread'>
                         <div class='title'>
@@ -85,10 +89,10 @@ export default function Discussion() {
                             <div class='post'>
                                 <img class='img' alt='missing' src={post[3] || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
                                 <p><span style={{fontWeight: 'bold'}}>{post[1]}</span></p>
+                                {post[4] && 
+                                <p style={{color: 'orange'}}>(verified medical student)</p>}
                                 <p>{post[0] && post[0]}</p>
-                            </div>
-                            <div>
-                                <p>{post[2]}</p>
+                                <p>: {post[2]}</p>
                             </div>
                         </div>
                         )}

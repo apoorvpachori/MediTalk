@@ -56,7 +56,7 @@ export default function Profile() {
         )
         // update display name of user
         if (isStu !== 'stu') {
-            updateProfile(user, {displayName: displayName + '|stu'}).then(() => navigate('/profile'))
+            updateProfile(user, {displayName: displayName + '|stu'}).then(() => {navigate('/profile'); alert('You are now verified!')})
         }
     }
 
@@ -71,6 +71,9 @@ export default function Profile() {
             }
             addStu()
         }
+        else {
+            alert('Verification failed. You must use a valid school email.')
+        }
     }
 
     function unverify() {
@@ -81,7 +84,6 @@ export default function Profile() {
 
     return user && (
         <>
-             <button onClick={() => navigate('/')}>Home</button>
              <div class='container'>
                 <div>
                     <img class='profile' src={user.photoURL} alt="" />
@@ -95,13 +97,10 @@ export default function Profile() {
                 <h1 style={{fontWeight: 100, textIndent: 20}}>Badges</h1>
                 {isStu === 'stu' && <div class='star'>medstudent</div>}
                 <div>
-                    {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
+                    {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> 
+                    : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
                 </div>
              </div>
-            
-             
-            
-            
         </>
     )
 }
