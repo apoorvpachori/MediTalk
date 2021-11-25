@@ -9,19 +9,19 @@ export default function Profile() {
 
     let navigate = useNavigate()
     var user = auth.currentUser
-    if (user == undefined)
+    if (user === undefined)
         return null;
     else
         localStorage.getItem("user")
 
     var email = user.email
-    if (email == undefined)
+    if (email === undefined)
     return null;
     else
         localStorage.getItem("email")
 
     var displayName = user.displayName
-    if (displayName == undefined)
+    if (displayName === undefined)
     return null;
     else
         localStorage.getItem("displayName")
@@ -31,7 +31,7 @@ export default function Profile() {
     const isStu = parts[1]
 
     var verified = user.emailVerified
-    if (verified == undefined)
+    if (verified === undefined)
     return null;
     else
         localStorage.getItem("verified")

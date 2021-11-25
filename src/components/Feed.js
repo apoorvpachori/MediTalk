@@ -14,11 +14,14 @@ export default function Feed() {
 
     return (
         <>
-            <header>
-                <button onClick={() => navigate('create')}>Create Discussion</button>
-            </header>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <input class='inputPost' placeholder='Search bar does not work yet' />
+            
+            <div style={{display: 'flex', marginTop: '20px'}}>
+                <div style={{marginRight: '30px'}}>
+                    <button class='postButton' onClick={() => navigate('create')}>Create Discussion</button>
+                </div>
+                <div>
+                    <input class='inputPost' placeholder='Search bar does not work yet' />
+                </div>
             </div>
             <div>
                 {discussions && discussions.map(disc => 

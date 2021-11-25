@@ -16,7 +16,7 @@ export default function Discussion() {
     const [discussions] = useCollectionData(query)
 
     // get list of all posts
-    const postRef = firestore.collection('posts');
+    const postRef = firestore.collection('posts')
     const postquery = postRef.where('discussion', '==', id)
     const [posts] = useCollectionData(postquery)
 
@@ -45,6 +45,15 @@ export default function Discussion() {
         setPost('');
     }
 
+    // convert posts to array and sort
+    // date format = yyyy-mm-dd hh:mm:ss
+    var arr = []
+    posts && posts.map(post => {
+        const date = post.date && post.date.toDate().toISOString().slice(-24).replace(/T/g,' ').slice(0, 19);
+        arr.push([date, post.author, post.post, post.img])})
+    arr.sort().reverse()
+    console.log(arr)
+
     return (
         <>
             <div>
@@ -67,15 +76,15 @@ export default function Discussion() {
             </div>
 
             <div className='thread'>
-                {posts && posts.map(post => 
+                {arr && arr.map(post => 
                         <div class='post'>
                             <div class='post'>
-                                <img class='img' alt='missing' src={post.img || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
-                                <p><span style={{fontWeight: 'bold'}}>{post.author}</span></p>
-                                <p>{post.date && post.date.toDate() && post.date.toDate().toString()}</p>
+                                <img class='img' alt='missing' src={post[3] || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
+                                <p><span style={{fontWeight: 'bold'}}>{post[1]}</span></p>
+                                <p>{post[0] && post[0]}</p>
                             </div>
                             <div>
-                                <p>{post.post}</p>
+                                <p>{post[2]}</p>
                             </div>
                         </div>
                         )}
