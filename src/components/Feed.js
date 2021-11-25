@@ -1,5 +1,5 @@
 import '../App.css'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { firestore } from '../firebase'
@@ -12,6 +12,17 @@ export default function Feed() {
     const query = discussionsRef.orderBy('title');
     const [discussions] = useCollectionData(query)
 
+    const [formTags, setTags] = useState('')
+
+    // create array of arrays representing discussions
+    var list = []
+    discussions && discussions.map(disc => {
+        const tags = disc.tags && disc.tags.split(',');
+        if ((tags && tags.includes(formTags)) || formTags === "") {
+            list.push([disc.id, disc.title, disc.description, disc.tags])
+        }
+    })
+
     return (
         <>
             
@@ -20,15 +31,16 @@ export default function Feed() {
                     <button class='postButton' onClick={() => navigate('create')}>Create Discussion</button>
                 </div>
                 <div>
-                    <input class='inputPost' placeholder='Search bar does not work yet' />
+                    <input class='inputPost' value={formTags} onChange={(e) => setTags(e.target.value)} placeholder='Search by tag' />
                 </div>
             </div>
             <div>
-                {discussions && discussions.map(disc => 
+                {list && list.map(disc => 
                     <div class='thread'>
                         <div class='post'>
-                        <a href={`/discussion/${disc.id}`}>{disc.title}</a>
-                        <p>{disc.description}</p>
+                        <a href={`/discussion/${disc[0]}`}>{disc[1]}</a>
+                        <p>{disc[2]}</p>
+                        {disc[3] && <p>Tags: {disc[3]}</p>}
                         </div>
                     </div>
                     )}

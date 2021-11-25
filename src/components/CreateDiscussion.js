@@ -9,6 +9,7 @@ export default function CreateDiscussion() {
     
     const [formTitle, setTitle] = useState('');
     const [formDesc, setDesc] = useState('');
+    const [formTags, setTags] = useState('');
 
     const newRef = doc(collection(firestore, 'discussions'));
     const createDisc = async (e) => {
@@ -22,11 +23,13 @@ export default function CreateDiscussion() {
                 title: formTitle,
                 description: formDesc,
                 postedBy: uid,
-                id: newRef.id
+                id: newRef.id,
+                tags: formTags
             }
         )
         setTitle('');
         setDesc('');
+        setTags('');
         alert('Success!')
         navigate(`/discussion/${newRef.id}`)
     }
@@ -52,8 +55,7 @@ export default function CreateDiscussion() {
                 </div>
                 <div style={{float: 'right', width: '50%'}}>
                     <div class='box'>
-                        <input type="checkbox" id='tag' />
-                        <label for="tag">tag</label>
+                        <input class='inputPost' value={formTags} onChange={(e) => setTags(e.target.value)} placeholder='Enter tags as a comma separated list' />
                     </div>
                 </div>
             </form>

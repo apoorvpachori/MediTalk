@@ -66,6 +66,9 @@ export default function Discussion() {
                         <div class='description'>
                             <h2 style={{fontWeight: 100}}>{disc.description}</h2>
                         </div>
+                        <div class = 'description'>
+                            {disc.tags && <h3 style={{fontWeight: 100}}>Tags: {disc.tags}</h3>}
+                        </div>
                     </div>
                     )}
             <div class='thread'>
