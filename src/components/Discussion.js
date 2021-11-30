@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 import { auth, firestore } from '../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, doc, setDoc } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
 
-export default function Discussion() {
-    let navigate = useNavigate();
-    
+export default function Discussion() {    
     const { id } = useParams();
 
     // get discussion

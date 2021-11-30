@@ -10,14 +10,13 @@ import PeopleIcon from '@material-ui/icons/People';
 import Grid from './components/homepage/Grid';
 
 // import all routing packages
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // import all components
 import Profile from './components/Profile';
 import Feed from './components/Feed';
 import Discussion from './components/Discussion';
 import CreateDiscussion from './components/CreateDiscussion';
-import HomeButton from './components/HomeButton';
 import NavBar from './components/NavBar';
 
 // import firebase packages
