@@ -4,8 +4,33 @@ import { useNavigate } from 'react-router'
 import { auth, firestore } from '../firebase'
 import { sendEmailVerification, updateProfile } from '@firebase/auth'
 import { doc, setDoc } from "firebase/firestore";
+import {useState,useEffect} from 'react'
 
 export default function Profile() {
+
+    const [data, setData] = useState([]);
+    useEffect(() => {
+
+        firestore.collection('students').get().then((snapshot)=>{
+            if(snapshot.empty)
+            {
+                console.log("empty")
+            }
+            else
+            {
+                let results = []
+                snapshot.docs.forEach((doc => {
+                    results.push(doc.id)
+                }))
+
+                setData(results)
+                console.log(results)
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    },[])
+
 
     let navigate = useNavigate()
     var user = auth.currentUser
@@ -43,8 +68,8 @@ export default function Profile() {
     localStorage.setItem("displayName", displayName)
     localStorage.setItem("verified", verified)
 
-    console.log(user.displayName)
-    console.log(isStu)
+    // console.log(user.displayName)
+    // console.log(isStu)
 
     // adds user's email to collection of verified medical students
     function addStu() {
@@ -82,6 +107,15 @@ export default function Profile() {
         }
     }
 
+    function checkVerified(email) {
+        for (let i =0;i<data.length; i++) {
+            if(data[i] === email)
+            {
+                return true
+            }
+        }
+        return false
+    }
     return user && (
         <>
              <div class='container'>
@@ -100,6 +134,8 @@ export default function Profile() {
                     {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> 
                     : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
                 </div>
+                <p> User Id is : {email}</p>
+                {checkVerified(email) && <button onClick={() => {}}>Apply to be a Forum Moderator</button>}
              </div>
         </>
     )
