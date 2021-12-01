@@ -40,8 +40,13 @@ export default function Feed() {
         }
     })
 
-    function handleClick (id) {
-        // firestore.collection('students').doc(id).delete()
+    const handleClick = async (id) => {
+        const postRef = firestore.collection('discussions').doc(id).collection('posts')
+        const list = await postRef.get()
+        list.forEach(post => {
+            post.ref.delete()
+        })
+        firestore.collection('discussions').doc(id).delete()
         console.log(id)
     }
     return (

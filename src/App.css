@@ -61,6 +61,8 @@ html {
   background: rgb(241, 164, 19);
   border-style: none;
   text-align: center;
+  vertical-align: middle;
+  line-height: 50px; 
   margin-left: 20px;
 }
 
@@ -144,6 +146,24 @@ html {
 }
 
 .postButton:hover {
+  background-color: white;
+}
+
+.modButton {
+  width: 200px;
+  height: 40px;
+  border-style: none;
+  background-color: rgb(243, 188, 188);
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 30px;
+  transition-duration: 0.4s;
+  color: black;
+  font-weight: bold;
+}
+
+.modButton:hover {
   background-color: white;
 }
 
