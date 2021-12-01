@@ -10,7 +10,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import Grid from './components/homepage/Grid';
 
 // import all routing packages
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // import all components
 import Profile from './components/Profile';
@@ -102,7 +102,6 @@ function App() {
 // keep sign in component in App.js
 function SignIn() {
   const signInWithGoogle = () => {
-    console.log('Clicked sign in ');
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }

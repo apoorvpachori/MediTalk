@@ -43,15 +43,16 @@ export default function Profile() {
     localStorage.setItem("displayName", displayName)
     localStorage.setItem("verified", verified)
 
-    console.log(user.displayName)
-    console.log(isStu)
+    // console.log(user.displayName)
+    // console.log(isStu)
 
     // adds user's email to collection of verified medical students
     function addStu() {
         setDoc(
             doc(firestore, 'students', email),
             {
-                email: email
+                email: email,
+                forum_mod: false
             }
         )
         // update display name of user
@@ -76,12 +77,22 @@ export default function Profile() {
         }
     }
 
-    function unverify() {
+    function unverify(email) {
         if (isStu === 'stu') {
+            firestore.collection('students').doc(email).delete()
             updateProfile(user, {displayName: displayName}).then(() => navigate('/profile'))
         }
     }
 
+    function becomeForumMod(email) {
+        setDoc(
+            doc(firestore, 'students', email),
+            {
+                email: email,
+                forum_mod: true
+            }
+        )
+    }
     return user && (
         <>
              <div class='container'>
@@ -98,7 +109,9 @@ export default function Profile() {
                 {isStu === 'stu' && <div class='star'>medstudent</div>}
                 <div>
                     {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> 
-                    : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
+                    : <button class='postButton' onClick={() => {unverify(user.email)}}>unverify</button>}
+                    <br />
+                    {isStu === 'stu' && <button onClick={() => {becomeForumMod(user.email)}}>Apply to be a Forum Moderator</button> }
                 </div>
              </div>
         </>

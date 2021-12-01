@@ -1,7 +1,6 @@
 import React from "react";
 import Signin from "./Signin";
-import logo from "../../resources/logo.svg";
-import logoMobile from "../../resources/logoMobile.svg";
+import logo from "../../resources/medi.png";
 import { Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
@@ -46,7 +45,7 @@ export default function Navbar(props) {
       className={classes.bar}
     >
       <img src={logo} className={classes.logo} alt = 'logo'/>
-      <img src={logoMobile} className={classes.logoMobile} alt = 'logo'/>
+      <p>    </p>
       <Typography variant="h6" className={classes.menuItem}>
         About
       </Typography>
