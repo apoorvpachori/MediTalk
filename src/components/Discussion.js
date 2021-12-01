@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 import { auth, firestore } from '../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, doc, setDoc } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
 
 export default function Discussion() {
-    let navigate = useNavigate();
     
     const { id } = useParams();
 
@@ -16,14 +14,12 @@ export default function Discussion() {
     const [discussions] = useCollectionData(query)
 
     // get list of all posts
-    const postRef = firestore.collection('posts')
-    const postquery = postRef.where('discussion', '==', id)
+    const postquery = discRef.doc(id).collection('posts')
     const [posts] = useCollectionData(postquery)
 
     // add comment to posts
     const [formPost, setPost] = useState('');
 
-    const newRef = doc(collection(firestore, 'posts'));
     const createPost = async (e) => {
         e.preventDefault();
 
@@ -36,8 +32,7 @@ export default function Discussion() {
             isStu = false;
         }
 
-        await setDoc(
-            newRef,
+        await discRef.doc(id).collection('posts').doc().set(
             {
                 post: formPost,
                 discussion: id,
@@ -45,8 +40,8 @@ export default function Discussion() {
                 date: firebase.firestore.FieldValue.serverTimestamp(),
                 img: user.photoURL,
                 stu: isStu
-            }
-        )
+          });
+
         setPost('');
     }
 

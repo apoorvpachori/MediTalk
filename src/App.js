@@ -17,7 +17,6 @@ import Profile from './components/Profile';
 import Feed from './components/Feed';
 import Discussion from './components/Discussion';
 import CreateDiscussion from './components/CreateDiscussion';
-import HomeButton from './components/HomeButton';
 import NavBar from './components/NavBar';
 
 // import firebase packages
