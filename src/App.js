@@ -102,7 +102,6 @@ function App() {
 // keep sign in component in App.js
 function SignIn() {
   const signInWithGoogle = () => {
-    console.log('Clicked sign in ');
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }

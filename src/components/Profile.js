@@ -51,7 +51,8 @@ export default function Profile() {
         setDoc(
             doc(firestore, 'students', email),
             {
-                email: email
+                email: email,
+                forum_mod: false
             }
         )
         // update display name of user
@@ -83,6 +84,15 @@ export default function Profile() {
         }
     }
 
+    function becomeForumMod(email) {
+        setDoc(
+            doc(firestore, 'students', email),
+            {
+                email: email,
+                forum_mod: true
+            }
+        )
+    }
     return user && (
         <>
              <div class='container'>
@@ -100,7 +110,8 @@ export default function Profile() {
                 <div>
                     {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> 
                     : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
-                    {isStu === 'stu' && <button onClick={() => {}}>Apply to be a Forum Moderator</button> }
+                    <br />
+                    {isStu === 'stu' && <button onClick={() => {becomeForumMod(user.email)}}>Apply to be a Forum Moderator</button> }
                 </div>
              </div>
         </>
