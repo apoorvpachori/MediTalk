@@ -41,6 +41,7 @@ export default function Feed() {
     })
 
     function handleClick (id) {
+        // firestore.collection('students').doc(id).delete()
         console.log(id)
     }
     return (

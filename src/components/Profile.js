@@ -77,9 +77,9 @@ export default function Profile() {
         }
     }
 
-    function unverify() {
+    function unverify(email) {
         if (isStu === 'stu') {
-            firestore.collection('students').doc('email').delete()
+            firestore.collection('students').doc(email).delete()
             updateProfile(user, {displayName: displayName}).then(() => navigate('/profile'))
         }
     }
@@ -109,7 +109,7 @@ export default function Profile() {
                 {isStu === 'stu' && <div class='star'>medstudent</div>}
                 <div>
                     {isStu !== 'stu' ? <button class='postButton' onClick={() => {verify()}}>Verify</button> 
-                    : <button class='postButton' onClick={() => {unverify()}}>unverify</button>}
+                    : <button class='postButton' onClick={() => {unverify(user.email)}}>unverify</button>}
                     <br />
                     {isStu === 'stu' && <button onClick={() => {becomeForumMod(user.email)}}>Apply to be a Forum Moderator</button> }
                 </div>
