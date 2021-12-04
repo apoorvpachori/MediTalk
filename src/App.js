@@ -1,7 +1,6 @@
 import React from 'react';
-//import './App.css';
 
-
+// import all material ui components
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Navbar from './components/homepage/Navbar';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -9,21 +8,21 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import PeopleIcon from '@material-ui/icons/People';
 import Grid from './components/homepage/Grid';
 
-// import all routing packages
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 // import all components
 import Profile from './components/Profile';
 import Feed from './components/Feed';
 import Discussion from './components/Discussion';
 import CreateDiscussion from './components/CreateDiscussion';
 import NavBar from './components/NavBar';
+import PageNotFound from './components/PageNotFound';
+
+// import all routing packages
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // import firebase packages
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 // import firebase objects
@@ -87,9 +86,9 @@ function App() {
       
 
       <Routes>
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/discussion/:id' element={<Discussion />} />
-          <Route path='/create' element={<CreateDiscussion />} />
+          <Route path='/profile' element={user ? <Profile /> : <PageNotFound />} />
+          <Route path='/discussion/:id' element={user ? <Discussion /> : <PageNotFound />} />
+          <Route path='/create' element={user ? <CreateDiscussion />  : <PageNotFound />} />
           <Route path='/' exact element={user ? <Feed /> : <SignIn />} />
       </Routes>
         
