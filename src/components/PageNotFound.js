@@ -9,7 +9,9 @@ export default function PageNotFound() {
         <>
             <div class='pageNotFound'>
                 Access Denied
-                <div><button class='postButton' onClick={() => navigate('/')}>Home</button></div>
+                <div>
+                    <button class='postButton' onClick={() => navigate('/')}>Home</button>
+                </div>
             </div>
             
         </>

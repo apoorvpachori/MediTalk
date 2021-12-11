@@ -102,7 +102,13 @@ function App() {
 function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    auth.signInWithPopup(provider)
+    .then(function (result) {
+      console.log("result", result);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   }
     const classes = styles();
   
